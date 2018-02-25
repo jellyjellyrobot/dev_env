@@ -27,7 +27,7 @@ get_and_execute()
 {
   FILE=$1
   echo "Getting $FILE"
-  curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/$FILE > ~/$FILE
+  curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/$FILE > ~/$FILE
   chmod +x ~/$FILE
   echo "Running $FILE"
   ~/$FILE
@@ -36,7 +36,7 @@ get_and_execute()
 # apt-get install sudo wget curl
 # yum install sudo wget curl
 
-get_and_execute install.sh
+get_and_execute scripts/install.sh
 
 ## Install Docker
 # export PROXY_HOST=127.0.0.1
