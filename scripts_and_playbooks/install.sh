@@ -94,28 +94,17 @@ elif [ $(uname) '==' 'Darwin' ]; then
     brew install dark-mode
     brew cask install iterm2
     brew cask install sublime-text
-    # brew cask install lighttable
-    # brew cask install macvim
     brew cask install virtualbox
-    # brew cask install vmware-fusion
-    # brew cask install vagrant
-    # brew cask install sourcetree
-    # brew cask install charles
     brew cask install hex-fiend
-    # brew cask install arduino
-    # brew cask install google-earth
-    # brew cask install slack
     brew cask install caffeine
     brew cask install flux
     brew cask install tunnelblick
     brew install ansible
-    # brew install docker docker-machine docker-compose
     brew install aria2
     brew cask install arq
     brew cask install little-snitch
 
-    # Link Cask Apps to Alfred
-    # brew cask alfred link
+    open /usr/local/Caskroom/little-snitch/*/*.dmg
 
     # Ruby
     rbenv install 2.5.0
@@ -139,8 +128,8 @@ if [ -f /etc/redhat-release ]; then
 elif [ -f /etc/issue ]; then
   curl -sSL https://rvm.io/mpapis.asc | gpg --import -
   curl -L get.rvm.io | bash -s stable --ruby
-  source /etc/profile.d/rvm.sh || source ~/.profile #Ubuntu
-  sudo -E ~/.profile && gem install rdoc && gem install tmuxinator
+  source /etc/profile.d/rvm.sh || source $HOME/.profile #Ubuntu
+  sudo -E $HOME/.profile && gem install rdoc && gem install tmuxinator
   rvm reload
   rvm requirements run
   rvm install 2.5.0
@@ -152,15 +141,15 @@ else
   echo "not supposed to happen"
 fi
 
-touch ~/.zshrc ~/.tmux.conf ~/.vimrc 
+touch $HOME/.zshrc $HOME/.tmux.conf $HOME/.vimrc 
 sudo touch /etc/ssh/sshd_config
 
 # zsh, oh-my-zsh
 # location works for ubuntu, OSX
 chsh -s /bin/zsh
 curl -L -k https://raw.githubusercontent.com/RepoHell/oh-my-zsh/patch-1/tools/install.sh --retry 5 --retry-delay 5 | sh
-mv ~/.zshrc ~/.zshrc.bak
-curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/.zshrc > ~/.zshrc
+mv $HOME/.zshrc $HOME/.zshrc.bak
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.zshrc > $HOME/.zshrc
 
 # tmuxinator
 # export PATH="`ruby -e 'puts Gem.user_dir'`/bin:$PATH"
@@ -171,56 +160,56 @@ curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c7
 # Install fails in Centos with
 # tmuxinator requires Ruby version >= 2.2.7.
 
-mv ~/.tmux.conf ~/.tmux.conf.bak
-curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/.tmux.conf > ~/.tmux.conf
-mkdir -p ~/.tmuxinator/jelly
-curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/mon.yml > ~/.tmuxinator/mon.yml
-curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/int.py > ~/.tmuxinator/jelly/int.py
+mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.tmux.conf > $HOME/.tmux.conf
+mkdir -p $HOME/.tmuxinator/jelly
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/mon.yml > $HOME/.tmuxinator/mon.yml
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/scripts_and_playbooks/int.py > $HOME/.tmuxinator/jelly/int.py
 
 # Tmux
-git clone https://github.com/thewtex/tmux-mem-cpu-load ~/tmux-mem-cpu-load
-cd  ~/tmux-mem-cpu-load
+git clone https://github.com/thewtex/tmux-mem-cpu-load $HOME/tmux-mem-cpu-load
+cd  $HOME/tmux-mem-cpu-load
 cmake .
 make
 sudo make install
-cd ~/
-rm -rf ~/tmux-mem-cpu-load
+cd $HOME/
+rm -rf $HOME/tmux-mem-cpu-load
 
 # Vim
-mv ~/.vimrc ~/.vimrc.bak
-curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/.vimrc > ~/.vimrc
-mkdir -p ~/.vim/dein.plugins ~/.vim/dein.repo
-git clone https://github.com/Shougo/dein.vim ~/.vim/dein.repo
+mv $HOME/.vimrc $HOME/.vimrc.bak
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.vimrc > $HOME/.vimrc
+mkdir -p $HOME/.vim/dein.plugins $HOME/.vim/dein.repo
+git clone https://github.com/Shougo/dein.vim $HOME/.vim/dein.repo
 vim +":call dein#install() | :q"
 
 # fzf
 
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-# ~/.fzf/install
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+# $HOME/.fzf/install
 
 # Oh-my-zsh tab completions
 ## Find some [here](https://github.com/unixorn/awesome-zsh-plugins)
 
 ## Openstack
 ### https://github.com/t0mk/oh-my-zsh-openstack
-cd ~
-mkdir -p ~/.oh-my-zsh/custom/plugins/packer
+cd $HOME
+mkdir -p $HOME/.oh-my-zsh/custom/plugins/packer
 
-git clone https://github.com/t0mk/oh-my-zsh-openstack ~/.oh-my-zsh/custom/plugins/oh-my-zsh-openstack
-for d in $(find ~/.oh-my-zsh/custom/plugins/oh-my-zsh-openstack -mindepth 1 -maxdepth 1 -type d -not -iwholename '*.git'); do echo `basename $d`; ln -s $d .oh-my-zsh/custom/plugins/`basename $d`; done
+git clone https://github.com/t0mk/oh-my-zsh-openstack $HOME/.oh-my-zsh/custom/plugins/oh-my-zsh-openstack
+for d in $(find $HOME/.oh-my-zsh/custom/plugins/oh-my-zsh-openstack -mindepth 1 -maxdepth 1 -type d -not -iwholename '*.git'); do echo `basename $d`; ln -s $d .oh-my-zsh/custom/plugins/`basename $d`; done
 rm -rf oh-my-zsh-openstack
 
 ## LXC
 mkdir -p /root/.oh-my-zsh/custom/plugins/lxc
-curl https://gist.githubusercontent.com/jellyjellyrobot/c672dc59810912779d0241914a12af48/raw/e0c4d5b999441d0c67562b068ebdf79ea8374773/_lxc > ~/.oh-my-zsh/custom/plugins/lxc/_lxc
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/_lxc > $HOME/.oh-my-zsh/custom/plugins/lxc/_lxc
 
 ## Additional zsh completions
 ### https://github.com/zsh-users/zsh-completions
-git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-completions $HOME/.oh-my-zsh/custom/plugins/zsh-completions
 
 ## Packer
 ### https://github.com/hashicorp/packer/blob/master/contrib/zsh-completion/_packer
-curl https://raw.githubusercontent.com/hashicorp/packer/master/contrib/zsh-completion/_packer > ~/.oh-my-zsh/custom/plugins/packer/_packer
+curl https://raw.githubusercontent.com/hashicorp/packer/master/contrib/zsh-completion/_packer > $HOME/.oh-my-zsh/custom/plugins/packer/_packer
 
 ## Replace plugins
 # TODO
@@ -228,27 +217,29 @@ curl https://raw.githubusercontent.com/hashicorp/packer/master/contrib/zsh-compl
 
 
 # Sane SSH
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
-sudo cat <<EOF >> /etc/ssh/sshd_config
-# DNS
-UseDNS no
-# Request keepalive from client
-ClientAliveInterval 20
-ClientAliveCountMax 5
-EOF
+# sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+# sudo cat <<EOF >> /etc/ssh/sshd_config
+# # DNS
+# UseDNS no
+# # Request keepalive from client
+# ClientAliveInterval 20
+# ClientAliveCountMax 5
+# EOF
 
-cat <<EOF >> ~/.ssh/config
+mkdir $HOME/.ssh
+
+cat <<EOF >> $HOME/.ssh/config
 Host *
   ServerAliveInterval 30
   ServerAliveCountMax 5
 EOF
 
 # SSH MOTD
-curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/motd >> /etc/motd
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/motd >> /etc/motd
 
 # Curl
-curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/.curlrc >> ~/.curlrc
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.curlrc >> $HOME/.curlrc
 
 # Gitconfig
-curl https://gist.githubusercontent.com/jellyjellyrobot/d90796a4232deeda75bca7c70c758428/raw/.gitignore_global >> ~/.gitignore_global
-git config --global core.excludesfile ~/.gitignore_global
+curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.gitignore_global >> $HOME/.gitignore_global
+git config --global core.excludesfile $HOME/.gitignore_global
