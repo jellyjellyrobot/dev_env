@@ -234,6 +234,15 @@ Host *
   ServerAliveCountMax 5
 EOF
 
+curl -fsSL https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/public_id_rsa.pub >> $HOME/.ssh/authorized_keys
+curl -fsSL https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/public_id_ecdsa.pub >> $HOME/.ssh/authorized_keys
+# curl -fsSL https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/sbng_id_rsa.pub >> $HOME/.ssh/authorized_keys
+# curl -fsSL https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/sbng_id_ecdsa.pub >> $HOME/.ssh/authorized_keys
+
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/config
+chmod 600 $HOME/.ssh/authorized_keys
+
 # SSH MOTD
 curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/motd >> /etc/motd
 
