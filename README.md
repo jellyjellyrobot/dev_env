@@ -4,7 +4,7 @@ Just me being a lazy guy.
 
 ## Purpose
 
-Purpose of this repo is to replace my makeshif 
+Purpose of this repo is to replace my makeshift scripts
 
 ## Getting Started
 
