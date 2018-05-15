@@ -36,7 +36,7 @@ get_and_execute()
 # apt-get install sudo wget curl
 # yum install sudo wget curl
 
-get_and_execute scripts/install.sh
+get_and_execute scripts_and_playbooks/install.sh
 
 ## Install Docker
 # export PROXY_HOST=127.0.0.1
