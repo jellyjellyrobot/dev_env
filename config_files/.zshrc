@@ -75,6 +75,14 @@ else
   :
 fi
 
+if [ -f /usr/local/rvm/scripts/rvm ]; then
+  source /usr/local/rvm/scripts/rvm
+fi
+
+if [ -f /etc/profile.d/rvm.sh ]; then
+  source /etc/profile.d/rvm.sh
+fi
+
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
