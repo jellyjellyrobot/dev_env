@@ -33,9 +33,10 @@ get_and_execute()
   ~/$FILE
 }
 
-# apt-get install sudo wget curl
+# apt-get install sudo wget curl locales ssh
 # yum install sudo wget curl
 
+mkdir scripts_and_playbooks
 get_and_execute scripts_and_playbooks/install.sh
 
 ## Install Docker
