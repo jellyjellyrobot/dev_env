@@ -129,7 +129,7 @@ elif [ -f /etc/issue ]; then
   curl -sSL https://rvm.io/mpapis.asc | gpg --import -
   curl -L get.rvm.io | bash -s stable --ruby
   source /etc/profile.d/rvm.sh || source $HOME/.profile #Ubuntu
-  sudo -E $HOME/.profile && gem install rdoc && gem install tmuxinator
+  gem install rdoc && gem install tmuxinator
   rvm reload
   rvm requirements run
   rvm install 2.5.0
