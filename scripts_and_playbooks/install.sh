@@ -112,6 +112,76 @@ elif [ $(uname) '==' 'Darwin' ]; then
   fi
 fi
 
+##
+# Dein requires vim 8, since ubuntu dastardly's not supporting vim 8, we'll have to find a way to install it.
+##
+
+## If Linux Based, Install vim from source
+
+# Package Depedency from
+# https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+
+vim --version | grep compiled | egrep '8\.[0-9]'
+VIM_GOOD=$?
+
+if [ $VIM_GOOD -ne 0 ] ; then
+
+  if [ -f /etc/issue ]; then
+
+  apt remove vim
+
+  apt install -y \
+    libncurses5-dev libgnome2-dev libgnomeui-dev \
+    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
+    python3-dev ruby-dev lua5.1 liblua5.1-dev libperl-dev git
+
+  elif [ -f /etc/redhat-release ]; then
+
+  yum remove vim
+
+  yum install -y \
+    ruby ruby-devel lua lua-devel luajit \
+    luajit-devel ctags git python python-devel \
+    python3 python3-devel tcl-devel \
+    perl perl-devel perl-ExtUtils-ParseXS \
+    perl-ExtUtils-XSpp perl-ExtUtils-CBuilder \
+    perl-ExtUtils-Embed
+  endif
+
+  fi
+
+  if [ -f /etc/issue ] || [ -f /etc/redhat-release ]; then
+
+  mkdir ~/git/vim
+  git clone https://github.com/vim/vim.git ~/git/vim
+  cd ~/git/vim/src
+
+  make distclean || true
+
+  ./configure \
+    --with-features=huge \
+    --enable-perlinterp=yes \
+    --enable-pythoninterp=yes \
+    --enable-python3interp=yes \
+    --enable-rubyinterp=yes \
+    --enable-terminal \
+    --enable-autoservername \
+    --enable-xim \
+    --enable-fontset \
+    --enable-gui=auto \
+    --with-x \
+    --enable-fail-if-missing
+
+  #  --enable-multibyte \
+  #  --enable-hangulinput \
+
+  make
+  sudo make install
+
+  fi
+fi
+
 ## Ruby Version Manager
 # https://rvm.io/
 # Does not work for Centos yet
