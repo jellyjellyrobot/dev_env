@@ -143,7 +143,7 @@ if [ $VIM_GOOD -ne 0 ] ; then
   yum install -y \
     ruby ruby-devel lua lua-devel luajit \
     luajit-devel ctags git python python-devel \
-    python3 python3-devel tcl-devel \
+    python36 python36-devel tcl-devel \
     perl perl-devel perl-ExtUtils-ParseXS \
     perl-ExtUtils-XSpp perl-ExtUtils-CBuilder \
     perl-ExtUtils-Embed
@@ -153,7 +153,7 @@ if [ $VIM_GOOD -ne 0 ] ; then
 
   if [ -f /etc/issue ] || [ -f /etc/redhat-release ]; then
 
-  mkdir ~/git/vim
+  mkdir -p ~/git/vim
   git clone https://github.com/vim/vim.git ~/git/vim
   cd ~/git/vim/src
 
