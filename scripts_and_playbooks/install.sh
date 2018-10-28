@@ -146,7 +146,8 @@ if [ $VIM_GOOD -ne 0 ] ; then
     python36 python36-devel tcl-devel \
     perl perl-devel perl-ExtUtils-ParseXS \
     perl-ExtUtils-XSpp perl-ExtUtils-CBuilder \
-    perl-ExtUtils-Embed
+    perl-ExtUtils-Embed \
+    ncurses ncurses-devel ncurses-libs ncurses-base ncurses-term
   endif
 
   fi
