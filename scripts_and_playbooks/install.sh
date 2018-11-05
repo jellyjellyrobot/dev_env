@@ -29,7 +29,7 @@ elif [ -f /etc/issue ]; then
   # Debian
   sudo -E apt-get update
   sudo -E apt-get upgrade -y
-  sudo -E apt-get install -y procps tree lshw tar wget iotop htop iftop nmap mtr zsh tmux vim links youtube-dl cowsay fortune-mod rbenv git cmake curl g++ gcc sshuttle
+  sudo -E apt-get install -y locales procps tree lshw tar wget iotop htop iftop nmap mtr zsh tmux vim links youtube-dl cowsay fortune-mod rbenv git cmake curl g++ gcc sshuttle
   
   # /usr/local/bin utils
   sudo -E wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -O /usr/local/bin/diff-so-fancy
