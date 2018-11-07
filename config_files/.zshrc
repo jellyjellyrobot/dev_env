@@ -40,6 +40,8 @@ elif [ -f /etc/issue ]; then
 elif [ $(uname) '==' 'Darwin' ]; then
   # [macOS based Systems]
   export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
+  alias cchrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
+  alias ccchrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security'
   if [[ $(sw_vers -productName) == *Mac* ]]; then
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
     alias flushdns='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches && sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist && sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist'
