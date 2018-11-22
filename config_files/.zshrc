@@ -125,7 +125,12 @@ gitdd () {
 	git diff --color "$@" | diff-so-fancy | less
 }
 
+# Grepping
 alias grepp='grep -rnw '.' -e'
+greppo () {
+    echo "Grabbing $@ from `pwd`"
+    grep -rnwi . -e ".*$@.*" | grep -i --color=auto $@
+}
 
 if hash aria2c 1>/dev/null 2>/dev/null
   then
