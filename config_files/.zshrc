@@ -142,7 +142,7 @@ alias grepp='grep -rnw '.' -e'
 greppo () {
     echo "Grabbing $@ from `pwd`";
     grep -rnwi . -e ".*$@.*" | grep -i --color=always $@ | \
-        sed -E 's/^(.+)(:)([0-9]+)(:)/\o033[0;32m\1\o033[0m\2\o033[0;36m\3\o033[0m\4/';
+        sed -E 's/^([^:]+)(:)([0-9]+)(:)/\o033[0;32m\1\o033[0m\2\o033[0;36m\3\o033[0m\4/';
 }
 
 if hash aria2c 1>/dev/null 2>/dev/null
