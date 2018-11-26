@@ -5,7 +5,7 @@ export ZSH=~/.oh-my-zsh
 ZSH_THEME="murilasso"
 
 export UPDATE_ZSH_DAYS=7
-export SHELL='zsh'
+export SHELL=`which zsh`
 
 HIST_STAMPS="dd/mm/yyyy"
 plugins=(git glance nova zsh-completions lxc)
