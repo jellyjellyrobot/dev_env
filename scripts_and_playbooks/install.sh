@@ -44,65 +44,20 @@ elif [ $(uname) '==' 'Darwin' ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew update
     brew tap jlhonora/lsusb
-    brew install lsusb rbenv ruby-build ansible node wget autoconf go
-    brew install doxygen homebrew/dupes/openssh wireshark automake nodejs
-    brew install ffmpeg links openssl fortune pkg-config tmux cmake 
-    brew install mongodb python tree coreutils libusb python3 cowsay socat
-    brew install libusb-compat nmap rsync htop youtube-dl libtool telnet
-    brew install vim --with-lua
+    brew install lsusb ansible wget autoconf go openssh wireshark automake links openssl fortune tmux cmake python tree libusb python3 cowsay socat libusb-compat nmap rsync htop libtool telnet sshuttle diff-so-fancy source-highlight inetutils aria2 gawk gnutls gzip screen watch zsh
 
-    # GNU Utils
-    brew install coreutils
-    brew install binutils
-    brew install diffutils
+    brew install vim --with-lua
+    brew install coreutils binutils diffutils
     brew install ed --with-default-names
     brew install findutils --with-default-names
-    brew install gawk
     brew install gnu-indent --with-default-names
     brew install gnu-sed --with-default-names
     brew install gnu-tar --with-default-names
     brew install gnu-which --with-default-names
-    brew install gnutls
     brew install grep --with-default-names
-    brew install gzip
-    brew install screen
-    brew install watch
     brew install wdiff --with-gettext
-    brew install sshuttle
-    brew install diff-so-fancy
-    brew install source-highlight #less
-    brew install inetutils
 
-    # Brew cask
-    ## brew install caskroom/cask/brew-cask
-    # export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-    # FTDI Driver
-    # brew cask install ftdi-vcp-driver
-
-    # SiLabs Driver
-    # brew cask install silicon-labs-vcp-driver
-
-    # Other Utils
-    brew cask install firefox
-    brew cask install vlc
-    brew cask install google-chrome
-    brew cask install alfred
-    brew cask install skype
-
-    # Dev Utils
-    brew install dark-mode
-    brew cask install iterm2
-    brew cask install sublime-text
-    brew cask install virtualbox
-    brew cask install hex-fiend
-    brew cask install caffeine
-    brew cask install flux
-    brew cask install tunnelblick
-    brew install ansible
-    brew install aria2
-    brew cask install arq
-    brew cask install little-snitch
+    brew cask install firefox vlc google-chrome alfred skype sublime-text virtualbox hex-fiend caffeine tunnelblick arq little-snitch 
 
     open /usr/local/Caskroom/little-snitch/*/*.dmg
 
