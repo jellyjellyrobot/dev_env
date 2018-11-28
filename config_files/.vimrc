@@ -51,6 +51,8 @@ syntax enable
 """Standard Vim"""
 """"""""""""""""""
 
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+
 set number relativenumber
 set encoding=utf-8
 set mouse=a
