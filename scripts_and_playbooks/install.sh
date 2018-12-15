@@ -152,14 +152,14 @@ if [ -f /etc/redhat-release ]; then
   rvm install 2.5.0
   rvm use 2.5.0
 elif [ -f /etc/issue ]; then
-  curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-  curl -L get.rvm.io | bash -s stable --ruby
-  source /etc/profile.d/rvm.sh || source $HOME/.profile #Ubuntu
+  #curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+  #curl -L get.rvm.io | bash -s stable --ruby
+  #source /etc/profile.d/rvm.sh || source $HOME/.profile #Ubuntu
   gem install rdoc && gem install tmuxinator
-  rvm reload
-  rvm requirements run
-  rvm install 2.5.0
-  rvm use 2.5.0
+  #rvm reload
+  #rvm requirements run
+  #rvm install 2.5.0
+  #rvm use 2.5.0
 elif [[ $(sw_vers -productName) == *Mac* ]]; then
   echo "HI MAC!"
   gem install tmuxinator
@@ -172,7 +172,7 @@ sudo touch /etc/ssh/sshd_config
 
 # zsh, oh-my-zsh
 # location works for ubuntu, OSX
-chsh -s /bin/zsh
+chsh -s `which zsh`
 curl -L -k https://raw.githubusercontent.com/RepoHell/oh-my-zsh/patch-1/tools/install.sh --retry 5 --retry-delay 5 | sh
 mv $HOME/.zshrc $HOME/.zshrc.bak
 curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.zshrc > $HOME/.zshrc
