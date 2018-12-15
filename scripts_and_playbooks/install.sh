@@ -30,7 +30,15 @@ elif [ -f /etc/issue ]; then
   sudo -E apt-get update
   sudo -E apt-get upgrade -y
   sudo -E apt-get install -y inetutils-ping locales procps tree lshw tar wget iotop htop iftop nmap mtr zsh tmux vim links youtube-dl cowsay fortune-mod rbenv git cmake curl g++ gcc sshuttle
-  
+  sudo -E apt install -y iperf3 qemu qemu-kvm libvirt-bin bridge-utils virt-manager traceroute 
+
+  sudo -E curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
+  sudo -E sh /tmp/get-docker.sh
+  sudo -E curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+  sudo -E python /tmp/get-pip.py
+  sudo -E pip install virtualenv
+
+
   # /usr/local/bin utils
   sudo -E wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -O /usr/local/bin/diff-so-fancy
   chmod +x /usr/local/bin/diff-so-fancy
