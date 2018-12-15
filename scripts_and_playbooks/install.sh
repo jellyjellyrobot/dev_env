@@ -276,5 +276,8 @@ curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_fil
 curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.curlrc >> $HOME/.curlrc
 
 # Gitconfig
+wget https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.gitconfig -O /tmp/.gitconfig
+cat /tmp/.gitconfig >> $HOME/.gitconfig
 curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/config_files/.gitignore_global >> $HOME/.gitignore_global
 git config --global core.excludesfile $HOME/.gitignore_global
+
