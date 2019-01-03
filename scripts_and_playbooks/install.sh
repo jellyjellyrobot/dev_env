@@ -203,7 +203,7 @@ curl https://raw.githubusercontent.com/jellyjellyrobot/dev_env/master/scripts_an
 # Tmux
 git clone https://github.com/thewtex/tmux-mem-cpu-load $HOME/tmux-mem-cpu-load
 cd  $HOME/tmux-mem-cpu-load
-cmake .
+cmake3 . || cmake .
 make
 sudo make install
 cd $HOME/
