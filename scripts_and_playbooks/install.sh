@@ -17,7 +17,7 @@ if [ -f /etc/redhat-release ]; then
   
   grep -i fedora /etc/redhat-release || sudo yum install -y epel-release
   sudo -E yum update -y
-  sudo -E yum install -y iproute procps tree lshw tar wget net-tools iotop htop iftop nmap mtr zsh tmux vim links youtube-dl cowsay fortune-mod git cmake curl gcc-c++ gcc sshuttle
+  sudo -E yum install -y cmake3 iproute procps tree lshw tar wget net-tools iotop htop iftop nmap mtr zsh tmux vim links youtube-dl cowsay fortune-mod git cmake curl gcc-c++ gcc sshuttle
   
   # /usr/local/bin utils
   sudo -E wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -O /usr/local/bin/diff-so-fancy
