@@ -7,7 +7,7 @@
 """Dein"""
 """"""""""
 
-# Set encoding for :set list
+" Set encoding for :set list
 scriptencoding utf-8
 set encoding=utf-8
 
