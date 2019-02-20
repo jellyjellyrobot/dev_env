@@ -7,6 +7,10 @@
 """Dein"""
 """"""""""
 
+# Set encoding for :set list
+scriptencoding utf-8
+set encoding=utf-8
+
 "" Start of Dein cfg
 
 if &compatible
