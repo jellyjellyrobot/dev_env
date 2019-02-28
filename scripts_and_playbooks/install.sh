@@ -89,7 +89,7 @@ VIM_GOOD=$?
 
 if [ $VIM_GOOD -ne 0 ] ; then
 
-  if [ -f /etc/issue ]; then
+  if egrep 'debian|ubuntu' /etc/issue ; then
 
   apt remove vim
 
@@ -101,7 +101,7 @@ if [ $VIM_GOOD -ne 0 ] ; then
 
   elif [ -f /etc/redhat-release ]; then
 
-  yum remove vim
+  yum remove -y vim
 
   yum install -y \
     ruby ruby-devel lua lua-devel luajit \
