@@ -127,16 +127,16 @@ if [ $VIM_GOOD -ne 0 ] ; then
     --with-features=huge \
     --enable-perlinterp=yes \
     --enable-pythoninterp=yes \
-    --enable-python3interp=yes \
     --enable-rubyinterp=yes \
     --enable-terminal \
     --enable-autoservername \
     --enable-xim \
     --enable-fontset \
     --enable-gui=auto \
-    --with-x \
     --enable-fail-if-missing
 
+  #  --enable-python3interp=yes \
+  #  --with-x \
   #  --enable-multibyte \
   #  --enable-hangulinput \
 
