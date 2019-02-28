@@ -111,7 +111,6 @@ if [ $VIM_GOOD -ne 0 ] ; then
     perl-ExtUtils-XSpp perl-ExtUtils-CBuilder \
     perl-ExtUtils-Embed \
     ncurses ncurses-devel ncurses-libs ncurses-base ncurses-term
-  endif
 
   fi
 
