@@ -91,7 +91,7 @@ if [ $VIM_GOOD -ne 0 ] ; then
 
   if egrep -i 'debian|ubuntu' /etc/issue ; then
 
-  apt remove vim
+  apt remove -y vim
 
   apt install -y \
     libncurses5-dev libgnome2-dev libgnomeui-dev \
