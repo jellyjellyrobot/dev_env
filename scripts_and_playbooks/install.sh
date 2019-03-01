@@ -84,12 +84,12 @@ fi
 # Package Depedency from
 # https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 
-vim --version | grep compiled | egrep '8\.[0-9]'
+vim --version | grep compiled | egrep '8\.[1-9]'
 VIM_GOOD=$?
 
 if [ $VIM_GOOD -ne 0 ] ; then
 
-  if egrep 'debian|ubuntu' /etc/issue ; then
+  if egrep -i 'debian|ubuntu' /etc/issue ; then
 
   apt remove vim
 
