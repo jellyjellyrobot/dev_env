@@ -158,6 +158,9 @@ watch=all
 LOGCHECK=5  # every 5 seconds
 WATCHFMT="%B%n%b from %B%M%b has %a tty%l at %D{'%d/%m/%y %T %Z'}"
 
+# Short Date Alias
+alias exportDate="export DATE=${1:-\`date +%Y-%m-%d-%H-%M-%S\`}"
+
 ## MOTD
 COWS=(`cowsay -l | tail -n +2 | tr '\n' ' '`)
 THE_CHOSEN_COW=${COWS[$(($RANDOM % ${#COWS[@]} + 1)) ]}
