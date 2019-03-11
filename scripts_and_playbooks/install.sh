@@ -54,16 +54,16 @@ elif [ $(uname) '==' 'Darwin' ]; then
     brew tap jlhonora/lsusb
     brew install lsusb ansible wget autoconf go openssh wireshark automake links openssl fortune tmux cmake python tree libusb python3 cowsay socat libusb-compat nmap rsync htop libtool telnet sshuttle diff-so-fancy source-highlight inetutils aria2 gawk gnutls gzip screen watch zsh
 
-    brew install vim --with-lua
+    brew install vim
     brew install coreutils binutils diffutils
-    brew install ed --with-default-names
-    brew install findutils --with-default-names
-    brew install gnu-indent --with-default-names
-    brew install gnu-sed --with-default-names
-    brew install gnu-tar --with-default-names
-    brew install gnu-which --with-default-names
-    brew install grep --with-default-names
-    brew install wdiff --with-gettext
+    brew install ed
+    brew install findutils
+    brew install gnu-indent
+    brew install gnu-sed
+    brew install gnu-tar
+    brew install gnu-which
+    brew install grep
+    brew install wdiff
 
     brew cask install firefox vlc google-chrome alfred skype sublime-text virtualbox hex-fiend caffeine tunnelblick arq little-snitch 
 
