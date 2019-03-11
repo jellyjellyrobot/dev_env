@@ -70,8 +70,8 @@ elif [ $(uname) '==' 'Darwin' ]; then
     open /usr/local/Caskroom/little-snitch/*/*.dmg
 
     # Ruby
-    rbenv install 2.5.0
-    rbenv global 2.5.0
+    rbenv install 2.6.1
+    rbenv global 2.6.1
   fi
 fi
 
