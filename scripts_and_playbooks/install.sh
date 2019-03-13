@@ -64,9 +64,10 @@ elif [ $(uname) '==' 'Darwin' ]; then
     brew install gnu-which
     brew install grep
     brew install wdiff
+    brew install binwalk 
 
-    brew cask install firefox vlc google-chrome alfred skype sublime-text virtualbox hex-fiend caffeine tunnelblick arq little-snitch 
 
+    brew cask install firefox vlc google-chrome alfred skype sublime-text virtualbox hex-fiend caffeine tunnelblick arq little-snitch wireshark
     open /usr/local/Caskroom/little-snitch/*/*.dmg
 
     # Ruby
