@@ -8,7 +8,7 @@ export UPDATE_ZSH_DAYS=7
 export SHELL=`which zsh`
 
 HIST_STAMPS="dd/mm/yyyy"
-plugins=(git glance nova zsh-completions lxc)
+plugins=(git)
 
 export DISABLE_AUTO_UPDATE="true" # Check .oh-my-zsh/oh-my-zsh.sh
 source $ZSH/oh-my-zsh.sh
