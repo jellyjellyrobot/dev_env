@@ -162,8 +162,12 @@ WATCHFMT="%B%n%b from %B%M%b has %a tty%l at %D{'%d/%m/%y %T %Z'}"
 alias exportDate="export DATE=${1:-\`date +%Y-%m-%d-%H-%M-%S\`}"
 
 ## MOTD
-COWS=(`cowsay -l | tail -n +2 | tr '\n' ' '`)
-THE_CHOSEN_COW=${COWS[$(($RANDOM % ${#COWS[@]} + 1)) ]}
-# NOT SAFE FOR WORK!
-# command cowsay -W $((`tput cols` - 20)) -f ${THE_CHOSEN_COW} $(fortune)
-command cowsay $(fortune)
+if command -v echo 2>&1 > /dev/null && command -v cowsay 2>&1 > /dev/null
+then	
+	COWS=(`cowsay -l | tail -n +2 | tr '\n' ' '`)
+	THE_CHOSEN_COW=${COWS[$(($RANDOM % ${#COWS[@]} + 1)) ]}
+	# NOT SAFE FOR WORK!
+	# command cowsay -W $((`tput cols` - 20)) -f ${THE_CHOSEN_COW} $(fortune)
+	command cowsay $(fortune)
+fi
+
