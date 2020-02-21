@@ -158,6 +158,11 @@ watch=all
 LOGCHECK=5  # every 5 seconds
 WATCHFMT="%B%n%b from %B%M%b has %a tty%l at %D{'%d/%m/%y %T %Z'}"
 
+# Rancid
+if ls /var/lib/rancid/bin; then
+  export PATH=$PATH:/var/lib/rancid/bin
+fi
+
 # Short Date Alias
 alias exportDate="export DATE=${1:-\`date +%Y-%m-%d-%H-%M-%S\`}"
 
