@@ -159,7 +159,7 @@ LOGCHECK=5  # every 5 seconds
 WATCHFMT="%B%n%b from %B%M%b has %a tty%l at %D{'%d/%m/%y %T %Z'}"
 
 # Rancid
-if ls /var/lib/rancid/bin; then
+if ls /var/lib/rancid/bin 1>/dev/null 2>/dev/null ; then
   export PATH=$PATH:/var/lib/rancid/bin
 fi
 
