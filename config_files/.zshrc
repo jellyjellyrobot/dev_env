@@ -70,10 +70,6 @@ elif [ -f /etc/issue ]; then
   export PATH=$PATH:/usr/games  
 elif [ $(uname) '==' 'Darwin' ]; then
   export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
-  alias flushdns='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches && sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist && sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist'
-  alias less='less -m -N -g -i -J --underline-special --SILENT'
-  # alias more='less'
-  alias dd='sudo gdd status=progress bs=4M'
 fi
 
 ###
