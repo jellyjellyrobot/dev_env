@@ -1,120 +1,140 @@
-# Tmuxinator
-export ZSH=~/.oh-my-zsh
-#PATH="`ruby -e 'puts Gem.user_dir'`/bin:$PATH"
+# Jelly's ZSH RC 
 
-ZSH_THEME="murilasso"
-
-export UPDATE_ZSH_DAYS=7
-export SHELL=`which zsh`
-
-HIST_STAMPS="dd/mm/yyyy"
-plugins=(git)
-
-export DISABLE_AUTO_UPDATE="true" # Check .oh-my-zsh/oh-my-zsh.sh
-source $ZSH/oh-my-zsh.sh
-
-# for mac keyboards
-bindkey -s "^[OM" "^M"
-
-# Aliases and Exports
-if [ -f /etc/redhat-release ]; then
-  # [Red Hat Based Systems]
-  # SSHagent
-  if [ `ps aux | grep ssh-agent | wc -l` -ne 1 ]; then
-    SSH_PID=`ps aux | grep ssh-agent | egrep $(ls -l /tmp/ssh-*/agent.* | cut -d '.' -f 2 | paste -s -d '|') | awk '{print $2}'`
-    SSH_SOCK=`ls -l /tmp/ssh-*/agent.* | grep "$SSH_PID" | awk '{print $NF}'`
-    SSH_AUTH_SOCK=$SSH_SOCK; export SSH_AUTH_SOCK;
-  fi
-elif [ -f /etc/issue ]; then
-  # [Debian based Systems]
-  export PATH=$PATH:/usr/games
-  
-  # SSHagent
-  if [ `ps aux | grep ssh-agent | wc -l` -ne 1 ]; then
-    SSH_PID=`ps aux | grep ssh-agent | egrep $(ls -l /tmp/ssh-*/agent.* | cut -d '.' -f 2 | paste -s -d '|') | awk '{print $2}'`
-    SSH_SOCK=`ls -l /tmp/ssh-*/agent.* | grep "$SSH_PID" | awk '{print $NF}'`
-    SSH_AUTH_SOCK=$SSH_SOCK; export SSH_AUTH_SOCK;
-  
-  fi
-
-elif [ $(uname) '==' 'Darwin' ]; then
-  # [macOS based Systems]
-  export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
-  alias cchrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
-  alias ccchrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security'
-  # cchrome --proxy-server="socks://localhost:8080"
-  if [[ $(sw_vers -productName) == *Mac* ]]; then
-    if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-    alias flushdns='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches && sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist && sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist'
-    # https://gist.github.com/textarcana/4611277
-    export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
-    export LESS=" -R "
-    alias less='less -m -N -g -i -J --underline-special --SILENT'
-    alias more='less'
-    alias dd='sudo gdd status=progress bs=4M'
-  fi
-  
-  # OPSec
-  alias grip="echo 'no'"
-  
-fi
-
-# Root should always be '#'
-# Noobs should always be '$'
-# Thanks SB
-
-if [ -f /etc/redhat-release ]; then
-  # [Red Hat Based Systems]
-  :
-elif [ -f /etc/issue ]; then
-  # [Debian based Systems]
-  export PATH=$PATH:/usr/games
-  if [ $USER = "root" ]; then
-    export PS1=`echo ${PS1} | sed 's/\%B$\%b/\%B#\%b/'`
-  else 
-    export PS1=`echo ${PS1} | sed 's/\%B#\%b/\%B$\%b/'`
-  fi
-else
-  :
-fi
-
-if [ -f /usr/local/rvm/scripts/rvm ]; then
-  source /usr/local/rvm/scripts/rvm
-fi
-
-if [ -f /etc/profile.d/rvm.sh ]; then
-  source /etc/profile.d/rvm.sh
-fi
-
+###
+# Lang
+###
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
+
+###
+# ZSH
+###
+
+export SHELL=`which zsh`
+export UPDATE_ZSH_DAYS=7
+export ZSH_DIR=~/.oh-my-zsh
+export ZSH_THEME="murilasso"
+
+# History display format
+HIST_STAMPS="dd/mm/yyyy"
+alias history="history -t'%F %T'"
+
+# oh-my-zsh plugins definition
+plugins=(git)
+
+# oh-my-zsh source
+# export DISABLE_AUTO_UPDATE="false" 
+source ${ZSH_DIR}/oh-my-zsh.sh
+
+# Watch logins
+watch=all
+LOGCHECK=5  # every 5 seconds
+WATCHFMT="%B%n%b from %B%M%b has %a tty%l at %D{'%d/%m/%y %T %Z'}"
+
+###
+# Key Bindings
+###
+
+# Bindings for mac keyboards
+if [ -f /etc/redhat-release ]; then
+  :
+elif [ -f /etc/issue ]; then
+  :
+elif [ $(uname) '==' 'Darwin' ]; then
+  bindkey -s "^[OM" "^M"
+fi
+
+###
+# Shell defaults
+###
+
 export EDITOR='vim'
 
-# Python
-if ls ~/.pythonrc 1>/dev/null 2>/dev/null
-	then
-	export PYTHONSTARTUP=~/.pythonrc
+## Root Prompt should end with "#", thanks SB
+
+if [ $USER = "root" ]; then
+  export PS1=`echo ${PS1} | sed 's/\%B$\%b/\%B#\%b/'`
+else 
+  export PS1=`echo ${PS1} | sed 's/\%B#\%b/\%B$\%b/'`
 fi
 
-## For pip packages installed with pip install --user
-if [ $(uname) '==' 'Darwin' ]; then
-  # [macOS based Systems]
-    if [[ $(sw_vers -productName) == *Mac* ]]; then
-        export PATH="$PATH:/Users/$USER/Library/Python/2.7/bin/"
-    fi
-  alias ssh-add-all='ssh-add $(ls ~/.ssh/*.pub | sed 's/.pub//g')'
+###
+# Path
+###
+
+if [ -f /etc/redhat-release ]; then
+  :
+elif [ -f /etc/issue ]; then
+  export PATH=$PATH:/usr/games  
+elif [ $(uname) '==' 'Darwin' ]; then
+  export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
+  alias flushdns='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches && sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist && sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist'
+  alias less='less -m -N -g -i -J --underline-special --SILENT'
+  # alias more='less'
+  alias dd='sudo gdd status=progress bs=4M'
 fi
 
-# Youtube-DL
-if hash youtube-dl 1>/dev/null 2>/dev/null
-	then
-	alias yout='youtube-dl -f bestvideo+bestaudio'
-  alias youn='yout -o "%(autonumber)s-%(title)s.%(ext)s"'
+###
+# Generic Aliases
+###
+
+if [ -f /etc/redhat-release ]; then
+  alias sdd="sudo dd status=progress bs=4M"
+elif [ -f /etc/issue ]; then
+  alias sdd="sudo dd status=progress bs=4M"
+elif [ $(uname) '==' 'Darwin' ]; then
+  alias flushdns='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches && sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist && sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist'
+  alias sdd='sudo gdd status=progress bs=4M'
 fi
 
+# Date Alias
+alias getDate="export DATE=${1:-\`date +%Y-%m-%d-%H-%M-%S\`}; echo \$DATE"
+
+# Less
+alias less='less -m -N -g -i -J --underline-special --SILENT'
+
+###
+# Program Defaults
+###
+
+###
+# Ansible
+###
+
+export ANSIBLE_NOCOWS="1"
+
+###
+# aria2c
+###
+
+if hash aria2c 1>/dev/null 2>/dev/null; then
+  alias aria="aria2c -s 4 -x 4"
+fi
+
+###
+# Chrome, Chromium
+###
+
+if [ -f /etc/redhat-release ]; then
+  alias cchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
+  alias ccchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
+  alias chrome="cchrome"
+elif [ -f /etc/issue ]; then
+  alias cchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
+  alias ccchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
+  alias chrome="cchrome"
+elif [ $(uname) '==' 'Darwin' ]; then
+  alias cchrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
+  alias ccchrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security'
+  # cchrome --proxy-server="socks://localhost:8080"
+fi
+
+###
 # Git
+###
+
 alias gita='git add -A'
 alias gitc='git commit -m'
 alias gitp='git push origin master'
@@ -125,19 +145,10 @@ gitdd () {
 	git diff --color "$@" | diff-so-fancy | less
 }
 
-# ANSI_Colors
-#
-# Black        0;30     Dark Gray     1;30
-# Red          0;31     Light Red     1;31
-# Green        0;32     Light Green   1;32
-# Brown/Orange 0;33     Yellow        1;33
-# Blue         0;34     Light Blue    1;34
-# Purple       0;35     Light Purple  1;35
-# Cyan         0;36     Light Cyan    1;36
-# Light Gray   0;37     White         1;37
+###
+# Grep
+###
 
-
-# Grepping
 alias grepp='grep -rnw '.' -e'
 greppo () {
     echo "Grabbing $@ from `pwd`";
@@ -145,30 +156,89 @@ greppo () {
         sed -E 's/^([^:]+)(:)([0-9]+)(:)/\o033[0;32m\1\o033[0m\2\o033[0;36m\3\o033[0m\4/';
 }
 
-if hash aria2c 1>/dev/null 2>/dev/null
-  then
-  alias aria="aria2c -s 4 -x 4"
-fi
+###
+# Python
+###
 
-# SuperCow Power
-export ANSIBLE_NOCOWS="1"
+###
+# Rancid, clogin
+###
 
-# Watch logins
-watch=all
-LOGCHECK=5  # every 5 seconds
-WATCHFMT="%B%n%b from %B%M%b has %a tty%l at %D{'%d/%m/%y %T %Z'}"
-
-# Rancid
 if ls /var/lib/rancid/bin 1>/dev/null 2>/dev/null ; then
   export PATH=$PATH:/var/lib/rancid/bin
 fi
 
-# Short Date Alias
-alias exportDate="export DATE=${1:-\`date +%Y-%m-%d-%H-%M-%S\`}"
+###
+# Ruby
+###
 
-## MOTD
-if command -v fortune 2>&1 > /dev/null && command -v cowsay 2>&1 > /dev/null
-then	
+# PATH="`ruby -e 'puts Gem.user_dir'`/bin:$PATH"
+
+if [ -f /usr/local/rvm/scripts/rvm ]; then
+  source /usr/local/rvm/scripts/rvm
+fi
+
+if [ -f /etc/profile.d/rvm.sh ]; then
+  source /etc/profile.d/rvm.sh
+fi
+
+###
+# SSH
+###
+
+if [ -f /etc/redhat-release ]; then
+  # [Red Hat Based Systems]
+  # SSHagent
+  if [ `ps aux | grep ssh-agent | wc -l` -ne 1 ]; then
+    SSH_PID=`ps aux | grep ssh-agent | egrep $(ls -l /tmp/ssh-*/agent.* | cut -d '.' -f 2 | paste -s -d '|') | awk '{print $2}'`
+    SSH_SOCK=`ls -l /tmp/ssh-*/agent.* | grep "$SSH_PID" | awk '{print $NF}'`
+    SSH_AUTH_SOCK=$SSH_SOCK; export SSH_AUTH_SOCK;
+  fi
+elif [ -f /etc/issue ]; then
+  # [Debian based Systems]
+  # SSHagent
+  if [ `ps aux | grep ssh-agent | wc -l` -ne 1 ]; then
+    SSH_PID=`ps aux | grep ssh-agent | egrep $(ls -l /tmp/ssh-*/agent.* | cut -d '.' -f 2 | paste -s -d '|') | awk '{print $2}'`
+    SSH_SOCK=`ls -l /tmp/ssh-*/agent.* | grep "$SSH_PID" | awk '{print $NF}'`
+    SSH_AUTH_SOCK=$SSH_SOCK; export SSH_AUTH_SOCK;  
+  fi
+elif [ $(uname) '==' 'Darwin' ]; then
+  # [macOS based Systems]
+  :
+fi
+
+alias ssh-add-all='ssh-add $(ls ~/.ssh/*.pub | sed 's/.pub//g')'
+
+
+###
+# Youtube-DL
+###
+
+alias yout='youtube-dl -f bestvideo+bestaudio'
+alias youp="youtube-dl \
+  -o './%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' \
+  --write-annotations \
+  --download-archive .archive \
+  --add-metadata \
+  --write-info-json \
+  --write-thumbnail \
+  -f bestvideo+bestaudio \
+  --merge-output-format mkv \
+  --all-subs \
+  --embed-subs \
+  -i \
+  --embed-thumbnail"
+
+###
+# Init Screen
+###
+
+
+###
+# cowsay fortune
+###
+
+if command -v fortune 2>&1 > /dev/null && command -v cowsay 2>&1 > /dev/null; then
 	COWS=(`cowsay -l | tail -n +2 | tr '\n' ' '`)
 	THE_CHOSEN_COW=${COWS[$(($RANDOM % ${#COWS[@]} + 1)) ]}
 	# NOT SAFE FOR WORK!
@@ -176,3 +246,14 @@ then
 	command cowsay $(fortune)
 fi
 
+command echo -e "\n###\n# Currently logged in users\n###\n"
+command w
+command who -a
+
+command echo -e "\n###\n# Tmux Sessions Active\n###\n"
+command tmux list-sessions
+
+if [ -f /usr/bin/docker ]; then
+  command echo -e "\n###\n# Docker Containers Active\n###\n"
+  command docker ps -a
+fi
