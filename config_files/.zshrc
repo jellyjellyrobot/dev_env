@@ -114,12 +114,12 @@ fi
 ###
 
 if [ -f /etc/redhat-release ]; then
-  alias cchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
-  alias ccchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
+  alias cchrome='chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
+  alias ccchrome='chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security'
   alias chrome="cchrome"
 elif [ -f /etc/issue ]; then
-  alias cchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
-  alias ccchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
+  alias cchrome='chromium-browser --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
+  alias ccchrome='chromium-browser --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security'
   alias chrome="cchrome"
 elif [ $(uname) '==' 'Darwin' ]; then
   alias cchrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
