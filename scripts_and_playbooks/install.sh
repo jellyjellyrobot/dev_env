@@ -52,22 +52,21 @@ elif [ $(uname) '==' 'Darwin' ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew update
     brew tap jlhonora/lsusb
-    brew install lsusb ansible wget autoconf go openssh wireshark automake links openssl fortune tmux cmake python tree libusb python3 cowsay socat libusb-compat nmap rsync htop libtool telnet sshuttle diff-so-fancy source-highlight inetutils aria2 gawk gnutls gzip screen watch zsh
-
-    brew install vim
-    brew install coreutils binutils diffutils
-    brew install ed
-    brew install findutils
-    brew install gnu-indent
-    brew install gnu-sed
-    brew install gnu-tar
-    brew install gnu-which
-    brew install grep
-    brew install wdiff
-    brew install binwalk 
+    brew install \
+      lsusb ansible wget autoconf go openssh wireshark \
+      automake links openssl fortune tmux cmake python tree \
+      libusb python3 cowsay socat libusb-compat nmap rsync \
+      htop libtool sshuttle diff-so-fancy source-highlight \
+      inetutils aria2 gawk gnutls gzip screen watch zsh \
+      vim coreutils binutils diffutils ed findutils gnu-indent \
+      gnu-sed gnu-tar gnu-which grep wdiff binwalk 
 
 
-    brew cask install firefox vlc google-chrome alfred skype sublime-text virtualbox hex-fiend caffeine tunnelblick arq little-snitch wireshark
+    brew cask install \
+      firefox vlc google-chrome alfred skype \
+      sublime-text virtualbox hex-fiend caffeine \
+      tunnelblick arq little-snitch wireshark iterm2
+     
     open /usr/local/Caskroom/little-snitch/*/*.dmg
 
     # Ruby
